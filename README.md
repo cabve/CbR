@@ -1,2 +1,4 @@
-# CbR-Queries
-Queries for Carbon Black Response
+# CbR-Queries and scripts
+
+- Queries for Carbon Black Response
+- Live Response script
