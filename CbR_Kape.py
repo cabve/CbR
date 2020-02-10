@@ -37,9 +37,13 @@ try:
     
     print('[DEBUG] Script Output:\n\n' + output)
     
-    session.get_file(r"C:\Windows\CarbonBlack\Tools\*_KFF.zip")
+    session.get_file(r"C:\temp\KFF.zip")
 
-    session.delete_file('C:\Windows\CarbonBlack\Tools\*')
+    session.delete_file(r"C:\temp\KFF.zip")
+
+    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape\')
+    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape.ps1')
+    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape.zip')
     
 except Exception as err:  # Catch potential errors
     print('[ERROR] Encountered: ' + str(err) + '\n[FAILURE] Fatal error caused exit!')  # Report error    
