@@ -13,12 +13,11 @@
 
 $KapePath = 'C:\Windows\CarbonBlack\Tools\kape\Kape.exe'
 $ZipPath = 'C:\Windows\CarbonBlack\Tools\'
-$KapeArg = '--tsource C: --tdest C:\temp --tflush --target !BasicCollection --vss --zip KFF --msource C:\temp --mdest C:\temp\KFF --mflush --zm true --module !EZParser --mef csv --zpw forensics'
+$KapeArg = '--tsource C: --tdest C:\temp\kape\collect --tflush --target !BasicCollection --vss --zip KFF --msource C:\temp\kape\collect --mdest C:\temp\kape\process --mflush --zm true --module !EZParser --mef csv --zpw forensics'
 
 function Invoke-Kape
 {
     Start-Process -FilePath $KapePath $KapeArg -NoNewWindow -Wait
-    # & $Path + 'Kape.exe' + $KapeArg
 }
 
 function Invoke-Uncompression
@@ -28,13 +27,20 @@ function Invoke-Uncompression
 
 function Invoke-Compression
 {
-    Compress-Archive -Path $Path + KFF -DestinationPath $Path + KFF.zip
+    Compress-Archive -Path 'C:\temp\kape' -DestinationPath 'C:\temp\KFF.zip' | Out-Null
 }
 
-function Get-Forensics {
+function Invoke-CleanUp 
+{
+    Remove-Item 'C:\temp\kape' -Recurse -Confirm:$false -Force
+}
+
+function Get-Forensics 
+{
     Invoke-Uncompression
     Invoke-Kape
-    #Invoke-Compression
+    Invoke-Compression
+    Invoke-CleanUp    
 }
 
 Get-Forensics
