@@ -1,17 +1,17 @@
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 ## CbR KAPE Pull Script
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-
+# 2624a8318a193291f32a5eec656b14513e62c058
 import time
 from cbapi.response import CbEnterpriseResponseAPI, Sensor
 
-c = CbEnterpriseResponseAPI()
+c = CbEnterpriseResponseAPI(url="x", token="x", ssl_verify=False)
 
-script_path = r'C:\Users\analyst\Desktop'  # Where is local Kape.ps1 script?
+script_path = r'path'  # Where is local Kape.ps1 script?
 
-print('Enter Sensor ID:')
-sensor_id = raw_input()
-# sensor_id = 150  # Use this to define the sensor ID in the script, rather than using input
+#print('Enter Sensor ID:')
+#sensor_id = raw_input()
+sensor_id = x  # Use this to define the sensor ID in the script, rather than using input
 
 try:
     sensor = c.select(Sensor, sensor_id)
@@ -32,18 +32,13 @@ try:
         session.delete_file(r'C:\Windows\CarbonBlack\Tools\Kape.ps1')
         session.put_file(open(script_path + '\Kape.ps1', 'rb'), 'C:\Windows\CarbonBlack\Tools\Kape.ps1')
     
-    output = session.create_process(r'''powershell.exe -ep Bypass -File "C:\Windows\CarbonBlack\Tools\Kape.ps1"''', True, None, None, 3600, True)
+    session.create_process(r'''powershell.exe -ep Bypass -File "C:\Windows\CarbonBlack\Tools\Kape.ps1"''', True, None, None, 3600, True)
+   
     print('[SUCCESS] Script execution successful. Navigate to destination location for artifacts.')
-    
-    print('[DEBUG] Script Output:\n\n' + output)
-    
+        
     session.get_file(r"C:\temp\KFF.zip")
 
     session.delete_file(r"C:\temp\KFF.zip")
-
-    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape\')
-    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape.ps1')
-    session.delete_file('C:\Windows\CarbonBlack\Tools\Kape.zip')
     
 except Exception as err:  # Catch potential errors
     print('[ERROR] Encountered: ' + str(err) + '\n[FAILURE] Fatal error caused exit!')  # Report error    
