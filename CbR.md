@@ -756,6 +756,11 @@ process_name:msbuild.exe (parent_name:powershell.exe OR parent_name:cmd.exe)
 process_name:msbuild.exe AND crossproc_type:"remotethread"
 ```
 
+```yaml
+modload:http://microsoft.build.utilities.v4.0.ni.dll and modload:http://microsoft.build.framework.ni.dll
+crossproc_type:remotethread
+```
+
 #### Rundll32, scrobj, clr
 
 ```yaml
